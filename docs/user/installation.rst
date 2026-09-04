@@ -120,24 +120,22 @@ And plot the results with
 Installing MuJoCo (Optional)
 ============================
 
-First, go to the `mujoco-py`_ github page. Follow the installation instructions in the README, which describe how to install the MuJoCo physics engine and the mujoco-py package (which allows the use of MuJoCo from Python). 
+MuJoCo used to be proprietary software requiring a paid (or free trial/student) license. In 2021, DeepMind acquired MuJoCo and open-sourced it, and it's now available as a regular pip package with no license step at all.
+
+Install the ``mujoco`` extra, which pulls in both the ``mujoco`` physics engine and its Gymnasium environments:
+
+.. parsed-literal::
+
+    uv pip install -e ".[mujoco]"
 
 .. admonition:: You Should Know
 
-    In order to use the MuJoCo simulator, you will need to get a `MuJoCo license`_. Free 30-day licenses are available to anyone, and free 1-year licenses are available to full-time students.
+    The MuJoCo environments you'll see referenced elsewhere as ``HalfCheetah-v2``, ``Walker2d-v2``, etc. no longer work directly: those old IDs were built on the deprecated ``mujoco-py`` bindings and have been moved out to the separate `gymnasium-robotics`_ project. The versions built on the modern ``mujoco`` bindings are ``-v4`` and ``-v5`` (``-v5`` is current; ``-v4`` still works but is deprecated in favor of it). Use those instead, e.g. ``Walker2d-v5``.
 
-Once you have installed MuJoCo, install the corresponding Gym environments with
-
-.. parsed-literal::
-
-    pip install gym[mujoco,robotics]
-
-And then check that things are working by running PPO in the Walker2d-v2 environment with
+And then check that things are working by running PPO in the Walker2d-v5 environment with
 
 .. parsed-literal::
 
-    python -m spinup.run ppo --hid "[32,32]" --env Walker2d-v2 --exp_name mujocotest
+    python -m spinup.run ppo --hid "[32,32]" --env Walker2d-v5 --exp_name mujocotest
 
-
-.. _`mujoco-py`: https://github.com/openai/mujoco-py
-.. _`MuJoCo license`: https://www.roboti.us/license.html
+.. _`gymnasium-robotics`: https://github.com/Farama-Foundation/Gymnasium-Robotics
