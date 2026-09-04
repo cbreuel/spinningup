@@ -95,7 +95,10 @@ def load_pytorch_policy(fpath, itr, deterministic=False):
     fname = osp.join(fpath, 'pyt_save', 'model'+itr+'.pt')
     print('\n\nLoading from %s.\n\n'%fname)
 
-    model = torch.load(fname)
+    # weights_only=False: this is a full pickled model object (not just a
+    # state_dict) written by our own logx.py Logger.save_state, not an
+    # untrusted third-party checkpoint.
+    model = torch.load(fname, weights_only=False)
 
     # make function for producing an action given a single state
     def get_action(x):
