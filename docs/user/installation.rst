@@ -25,32 +25,34 @@ Spinning Up is currently only supported on Linux and OSX. It may be possible to 
 Installing Python
 =================
 
-We recommend installing Python through Anaconda. Anaconda is a library that includes Python and many useful packages for Python, as well as an environment manager called conda that makes package management simple.
+We recommend installing Python through `uv`_, a fast, modern package and environment manager for Python. uv replaces the need for Anaconda: it installs Python versions for you and manages isolated virtual environments without a separate conda toolchain.
 
-Follow `the installation instructions`_ for Anaconda here. Download and install Anaconda3 (at time of writing, `Anaconda3-5.3.0`_). Then create a conda Python 3.6 env for organizing packages used in Spinning Up:
-
-.. parsed-literal::
-
-    conda create -n spinningup python=3.6
-
-To use Python from the environment you just created, activate the environment with:
+Install uv itself with the official installer:
 
 .. parsed-literal::
 
-    conda activate spinningup
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+
+Then create a Python 3.10 virtual environment for Spinning Up:
+
+.. parsed-literal::
+
+    uv venv --python 3.10 spinningup-env
+
+To use Python from the environment you just created, activate it with:
+
+.. parsed-literal::
+
+    source spinningup-env/bin/activate
 
 .. admonition:: You Should Know
 
-    If you're new to python environments and package management, this stuff can quickly get confusing or overwhelming, and you'll probably hit some snags along the way. (Especially, you should expect problems like, "I just installed this thing, but it says it's not found when I try to use it!") You may want to read through some clean explanations about what package management is, why it's a good idea, and what commands you'll typically have to execute to correctly use it. 
+    If you're new to python environments and package management, this stuff can quickly get confusing or overwhelming, and you'll probably hit some snags along the way. (Especially, you should expect problems like, "I just installed this thing, but it says it's not found when I try to use it!") You may want to read through some clean explanations about what package management is, why it's a good idea, and what commands you'll typically have to execute to correctly use it.
 
-    `FreeCodeCamp`_ has a good explanation worth reading. There's a shorter description on `Towards Data Science`_ which is also helpful and informative. Finally, if you're an extremely patient person, you may want to read the (dry, but very informative) `documentation page from Conda`_.
+    The `uv documentation`_ is a good place to start, and covers environments, Python version management, and dependency installation in one place.
 
-.. _`the installation instructions`: https://docs.continuum.io/anaconda/install/
-.. _`Anaconda3-5.3.0`: https://repo.anaconda.com/archive/
-.. _`FreeCodeCamp`: https://medium.freecodecamp.org/why-you-need-python-environments-and-how-to-manage-them-with-conda-85f155f4353c
-.. _`Towards Data Science`: https://towardsdatascience.com/environment-management-with-conda-python-2-3-b9961a8a5097
-.. _`documentation page from Conda`: https://conda.io/docs/user-guide/tasks/manage-environments.html
-.. _`this Github issue for Tensorflow`: https://github.com/tensorflow/tensorflow/issues/20444
+.. _`uv`: https://docs.astral.sh/uv/
+.. _`uv documentation`: https://docs.astral.sh/uv/
 
 
 Installing OpenMPI
