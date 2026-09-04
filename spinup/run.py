@@ -3,12 +3,11 @@ from spinup.user_config import DEFAULT_BACKEND
 from spinup.utils.run_utils import ExperimentGrid
 from spinup.utils.serialization_utils import convert_json
 import argparse
-import gym
+import gymnasium as gym
 import json
 import os, subprocess, sys
 import os.path as osp
 import string
-import tensorflow as tf
 import torch
 from copy import deepcopy
 from textwrap import dedent
@@ -153,21 +152,21 @@ def parse_and_execute_grid_search(cmd, args):
 
     # Special handling for environment: make sure that env_name is a real,
     # registered gym environment.
-    valid_envs = [e.id for e in list(gym.envs.registry.all())]
+    valid_envs = list(gym.envs.registry.keys())
     assert 'env_name' in arg_dict, \
         friendly_err("You did not give a value for --env_name! Add one and try again.")
     for env_name in arg_dict['env_name']:
         err_msg = dedent("""
 
-            %s is not registered with Gym.
+            %s is not registered with Gymnasium.
 
             Recommendations:
 
                 * Check for a typo (did you include the version tag?)
 
-                * View the complete list of valid Gym environments at
+                * View the complete list of valid Gymnasium environments at
 
-                    https://gym.openai.com/envs/
+                    https://gymnasium.farama.org/environments/classic_control/
 
             """%env_name)
         assert env_name in valid_envs, err_msg

@@ -83,13 +83,15 @@ Installing Spinning Up
 
     git clone https://github.com/openai/spinningup.git
     cd spinningup
-    pip install -e .
+    uv pip install -e .
 
 .. admonition:: You Should Know
 
-    Spinning Up defaults to installing everything in Gym **except** the MuJoCo environments. In case you run into any trouble with the Gym installation, check out the `Gym`_ github page for help. If you want the MuJoCo environments, see the optional installation section below.
+    Spinning Up defaults to installing everything in Gymnasium **except** the MuJoCo environments. In case you run into any trouble with the Gymnasium installation, check out the `Gymnasium`_ github page for help. If you want the MuJoCo environments, see the optional installation section below.
 
-.. _`Gym`: https://github.com/openai/gym
+    All 6 core algorithms (VPG, TRPO, PPO, DDPG, TD3, SAC) are implemented in PyTorch, which is the default backend. Older TensorFlow 1.x implementations of 5 of the 6 algorithms still exist in the repo for reference, but TensorFlow is no longer installed by default — TF1 has no wheels for modern Python. If you need them, install the ``tf1`` extra (``uv pip install -e ".[tf1]"``) into a separate Python 3.7-or-earlier environment.
+
+.. _`Gymnasium`: https://github.com/Farama-Foundation/Gymnasium
 
 Check Your Install
 ==================

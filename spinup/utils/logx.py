@@ -9,7 +9,6 @@ import json
 import joblib
 import shutil
 import numpy as np
-import tensorflow as tf
 import torch
 import os.path as osp, time, atexit, os
 import warnings
@@ -54,8 +53,9 @@ def restore_tf_graph(sess, fpath):
 
     Returns:
         A dictionary mapping from keys to tensors in the computation graph
-        loaded from ``fpath``. 
+        loaded from ``fpath``.
     """
+    import tensorflow as tf
     tf.saved_model.loader.load(
                 sess,
                 [tf.saved_model.tag_constants.SERVING],
@@ -216,8 +216,9 @@ class Logger:
     def _tf_simple_save(self, itr=None):
         """
         Uses simple_save to save a trained model, plus info to make it easy
-        to associated tensors to variables after restore. 
+        to associated tensors to variables after restore.
         """
+        import tensorflow as tf
         if proc_id()==0:
             assert hasattr(self, 'tf_saver_elements'), \
                 "First have to setup saving with self.setup_tf_saver"
