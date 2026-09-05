@@ -110,12 +110,40 @@ def load_pytorch_policy(fpath, itr, deterministic=False):
     return get_action
 
 
+def enable_human_render(env):
+    """
+    Turn on human-mode rendering for an env that was built without it.
+
+    Gymnasium fixes the render mode when the environment is constructed, but
+    the envs saved during training are made with ``gym.make(env_name)`` and so
+    carry ``render_mode=None``. Calling ``render()`` on those raises instead of
+    drawing anything. The saved envs also lose their ``spec``, so they can't be
+    rebuilt from the registry; set the mode on the unwrapped env instead, which
+    the standard envs pick up because they create their viewer lazily.
+
+    Returns True if rendering is available, False otherwise.
+    """
+    if env.render_mode is not None:
+        return True
+
+    if 'human' not in env.metadata.get('render_modes', []):
+        print('Warning: this environment does not support human rendering. '
+              'Continuing without it.')
+        return False
+
+    env.unwrapped.render_mode = 'human'
+    return True
+
+
 def run_policy(env, get_action, max_ep_len=None, num_episodes=100, render=True):
 
     assert env is not None, \
         "Environment not found!\n\n It looks like the environment wasn't saved, " + \
         "and we can't run the agent in it. :( \n\n Check out the readthedocs " + \
         "page on Experiment Outputs for how to handle this situation."
+
+    if render:
+        render = enable_human_render(env)
 
     logger = EpochLogger()
     o, _ = env.reset()
@@ -141,6 +169,9 @@ def run_policy(env, get_action, max_ep_len=None, num_episodes=100, render=True):
     logger.log_tabular('EpRet', with_min_and_max=True)
     logger.log_tabular('EpLen', average_only=True)
     logger.dump_tabular()
+
+    # Shut the viewer window down cleanly when we rendered.
+    env.close()
 
 
 if __name__ == '__main__':
