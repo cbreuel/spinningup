@@ -33,17 +33,13 @@ Install uv itself with the official installer:
 
     curl -LsSf https://astral.sh/uv/install.sh | sh
 
-Then create a Python 3.10 virtual environment for Spinning Up:
+Then have uv download the version of Python we'll use:
 
 .. parsed-literal::
 
-    uv venv --python 3.10 spinningup-env
+    uv python install 3.10
 
-To use Python from the environment you just created, activate it with:
-
-.. parsed-literal::
-
-    source spinningup-env/bin/activate
+You don't need to install Python any other way, and you don't need to touch your system Python: uv keeps its own copies. We'll create the virtual environment itself in the `Installing Spinning Up`_ step below, inside the cloned repo.
 
 .. admonition:: You Should Know
 
@@ -79,11 +75,25 @@ Installation of system packages on Mac requires Homebrew_. With Homebrew install
 Installing Spinning Up
 ======================
 
+Clone the repo, create the virtual environment inside it, activate the environment, and install:
+
 .. parsed-literal::
 
     git clone https://github.com/openai/spinningup.git
     cd spinningup
+    uv venv --python 3.10 spinningup-env
+    source spinningup-env/bin/activate
     uv pip install -e .
+
+.. admonition:: You Should Know
+
+    **You have to activate the environment in every new terminal you open.** Unlike a conda environment, which has a name you can activate from anywhere, a virtual environment lives in a directory. From the ``spinningup`` folder, that's:
+
+    .. parsed-literal::
+
+        source spinningup-env/bin/activate
+
+    If you skip this, the commands below won't work, and the error usually won't mention environments at all. On Ubuntu you'll get ``python: command not found`` (there's no bare ``python`` outside an environment, only ``python3``); if you do have a system ``python``, you'll get ``No module named spinup`` instead. Both mean the same thing: activate the environment and try again.
 
 .. admonition:: You Should Know
 
@@ -96,7 +106,7 @@ Installing Spinning Up
 Check Your Install
 ==================
 
-To see if you've successfully installed Spinning Up, try running PPO in the LunarLander-v3 environment with
+With your environment activated (``source spinningup-env/bin/activate``, from the ``spinningup`` folder), try running PPO in the LunarLander-v3 environment with
 
 .. parsed-literal::
 
@@ -122,10 +132,11 @@ Installing MuJoCo (Optional)
 
 MuJoCo used to be proprietary software requiring a paid (or free trial/student) license. In 2021, DeepMind acquired MuJoCo and open-sourced it, and it's now available as a regular pip package with no license step at all.
 
-Install the ``mujoco`` extra, which pulls in both the ``mujoco`` physics engine and its Gymnasium environments:
+From the ``spinningup`` folder, with your environment activated, install the ``mujoco`` extra, which pulls in both the ``mujoco`` physics engine and its Gymnasium environments:
 
 .. parsed-literal::
 
+    source spinningup-env/bin/activate
     uv pip install -e ".[mujoco]"
 
 .. admonition:: You Should Know
