@@ -18,7 +18,7 @@ The following algorithms are implemented in the Spinning Up package:
 
 They are all implemented with `MLP`_ (non-recurrent) actor-critics, making them suitable for fully-observed, non-image-based RL environments, e.g. the `Gym Mujoco`_ environments.
 
-Spinning Up has two implementations for each algorithm (except for TRPO): one that uses `PyTorch`_ as the neural network library, and one that uses `Tensorflow v1`_ as the neural network library. (TRPO is currently only available in Tensorflow.)
+Spinning Up has two implementations for each algorithm: one that uses `PyTorch`_ as the neural network library, and one that uses `Tensorflow v1`_ as the neural network library. The PyTorch implementations are the ones you get by default; the Tensorflow v1 ones are legacy code, kept for reference, and are not installed by default (see `Installation`_).
 
 .. _`Gym Mujoco`: https://gym.openai.com/envs/#mujoco
 .. _`Vanilla Policy Gradient`: ../algorithms/vpg.html
@@ -30,6 +30,7 @@ Spinning Up has two implementations for each algorithm (except for TRPO): one th
 .. _`MLP`: https://en.wikipedia.org/wiki/Multilayer_perceptron
 .. _`PyTorch`: https://pytorch.org/
 .. _`Tensorflow v1`: https://www.tensorflow.org/versions/r1.15/api_docs
+.. _`Installation`: ../user/installation.html
 
 
 Why These Algorithms?

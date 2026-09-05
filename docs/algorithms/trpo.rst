@@ -156,13 +156,34 @@ Documentation
 
 .. admonition:: You Should Know
 
-    Spinning Up currently only has a Tensorflow implementation of TRPO. 
+    In what follows, we give documentation for the PyTorch and Tensorflow implementations of TRPO in Spinning Up. They have nearly identical function calls and docstrings, except for details relating to model construction. However, we include both full docstrings for completeness.
+
+
+Documentation: PyTorch Version
+------------------------------
+
+.. autofunction:: spinup.trpo_pytorch
+
+Saved Model Contents: PyTorch Version
+-------------------------------------
+
+The PyTorch saved model can be loaded with ``ac = torch.load('path/to/model.pt')``, yielding an actor-critic object (``ac``) that has the properties described in the docstring for ``trpo_pytorch``.
+
+You can get actions from this model with
+
+.. code-block:: python
+
+    actions = ac.act(torch.as_tensor(obs, dtype=torch.float32))
+
+
+Documentation: Tensorflow Version
+---------------------------------
 
 .. autofunction:: spinup.trpo_tf1
 
 
-Saved Model Contents
---------------------
+Saved Model Contents: Tensorflow Version
+----------------------------------------
 
 The computation graph saved by the logger includes:
 
