@@ -9,7 +9,7 @@ pytest
 psutil
 scipy
 seaborn
-sphinx==1.5.6
-sphinx-autobuild==0.7.1
-sphinx-rtd-theme==0.4.1
+sphinx>=7.0
+sphinx-autobuild
+sphinx-rtd-theme
 tqdm

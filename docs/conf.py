@@ -46,13 +46,6 @@ sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
 # Finish imports
 import spinup
-from recommonmark.parser import CommonMarkParser
-
-
-source_parsers = {
-    '.md': CommonMarkParser,
-}
-
 
 # -- General configuration ------------------------------------------------
 
@@ -63,25 +56,21 @@ source_parsers = {
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.imgmath',
+#
+# All docs sources are .rst (no Markdown), so there's no CommonMark parser
+# here. Math rendering uses MathJax (client-side JS) rather than imgmath,
+# which needed a local LaTeX + dvipng/dvisvgm toolchain that's painful to
+# maintain in CI.
+extensions = ['sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon']
-
-#'sphinx.ext.mathjax', ??
-
-# imgmath settings
-imgmath_image_format = 'svg'
-imgmath_font_size = 14
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
 # The suffix(es) of source filenames.
-# You can specify multiple suffix as a list of string:
-#
-source_suffix = ['.rst', '.md']
-# source_suffix = '.rst'
+source_suffix = ['.rst']
 
 # The master toctree document.
 master_doc = 'index'
@@ -105,7 +94,7 @@ release = ''
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = 'en'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -151,30 +140,6 @@ html_favicon = 'openai_icon.ico'
 htmlhelp_basename = 'SpinningUpdoc'
 
 # -- Options for LaTeX output ---------------------------------------------
-
-
-imgmath_latex_preamble = r'''
-\usepackage{algorithm}
-\usepackage{algorithmic}
-\usepackage{amsmath}
-\usepackage{cancel}
-
-\usepackage[verbose=true,letterpaper]{geometry}
-\geometry{
-    textheight=12in,
-    textwidth=6.5in,
-    top=1in,
-    headheight=12pt,
-    headsep=25pt,
-    footskip=30pt
-    }
-
-\newcommand{\E}{{\mathrm E}}
-
-\newcommand{\underE}[2]{\underset{\begin{subarray}{c}#1 \end{subarray}}{\E}\left[ #2 \right]}
-
-\newcommand{\Epi}[1]{\underset{\begin{subarray}{c}\tau \sim \pi \end{subarray}}{\E}\left[ #1 \right]}
-'''
 
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
@@ -238,4 +203,4 @@ texinfo_documents = [
 
 
 def setup(app):
-    app.add_stylesheet('css/modify.css')
+    app.add_css_file('css/modify.css')
