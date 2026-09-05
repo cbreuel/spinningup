@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spinup"
+description = "Teaching tools for introducing people to deep RL."
+authors = [{name = "Joshua Achiam"}]
+requires-python = ">=3.8"
+dynamic = ["version"]
+dependencies = [
+    "cloudpickle",
+    "gymnasium[classic-control,box2d]",
+    "ipython",
+    "joblib",
+    "matplotlib",
+    "mpi4py",
+    "numpy",
+    "pandas",
+    "pytest",
+    "psutil",
+    "scipy",
+    "seaborn",
+    "torch>=2.0",
+    "tqdm",
+]
+
+[project.optional-dependencies]
+# MuJoCo environments are optional; see the "Installing MuJoCo" section of
+# the docs.
+mujoco = ["gymnasium[mujoco]"]
+
+# Note: there is deliberately no 'tf1' extra. The legacy TensorFlow 1.x
+# implementations in spinup/algos/tf1 can't be expressed as an extra at all:
+# TF 1.x ships wheels only for cp36/cp37, so no environment can satisfy both
+# requires-python >=3.8 and tensorflow<2.0. Running that code needs a
+# separate Python 3.7-or-earlier environment with tensorflow installed
+# directly. All 6 algorithms are available under the pytorch backend, which
+# is the default.
+
+[tool.setuptools.dynamic]
+version = {attr = "spinup.version.__version__"}
+
+[tool.setuptools.packages.find]
+# namespaces = true is required: the spinup/algos/pytorch/* packages have no
+# __init__.py files, so plain (non-namespace) discovery would skip them.
+include = ["spinup*"]
+namespaces = true

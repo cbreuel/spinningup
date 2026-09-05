@@ -1,9 +1,8 @@
-version_info = (0, 2, 0)
+# Single source of truth for the version: pyproject.toml reads __version__
+# from here, which requires it to stay a plain string literal (setuptools
+# parses this file statically, without importing it).
+__version__ = '0.2.0'
+
 # format:
 # ('spinup_major', 'spinup_minor', 'spinup_patch')
-
-def get_version():
-    "Returns the version as a human-format string."
-    return '%d.%d.%d' % version_info
-
-__version__ = get_version()
+version_info = tuple(int(part) for part in __version__.split('.'))

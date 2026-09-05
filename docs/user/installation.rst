@@ -33,13 +33,7 @@ Install uv itself with the official installer:
 
     curl -LsSf https://astral.sh/uv/install.sh | sh
 
-Then have uv download the version of Python we'll use:
-
-.. parsed-literal::
-
-    uv python install 3.10
-
-You don't need to install Python any other way, and you don't need to touch your system Python: uv keeps its own copies. We'll create the virtual environment itself in the `Installing Spinning Up`_ step below, inside the cloned repo.
+That's the only thing you have to install by hand. You don't need to install Python separately, and you don't need to touch your system Python: uv keeps its own copies, and the `Installing Spinning Up`_ step below downloads the right version (3.10, pinned in the repo's ``.python-version``) and builds the environment for you.
 
 .. admonition:: You Should Know
 
@@ -75,38 +69,49 @@ Installation of system packages on Mac requires Homebrew_. With Homebrew install
 Installing Spinning Up
 ======================
 
-Clone the repo, create the virtual environment inside it, activate the environment, and install:
+Clone the repo and let uv build the environment:
 
 .. parsed-literal::
 
     git clone https://github.com/openai/spinningup.git
     cd spinningup
-    uv venv --python 3.10 spinningup-env
-    source spinningup-env/bin/activate
-    uv pip install -e .
+    uv sync
+
+``uv sync`` does everything in one step: it downloads Python 3.10 if you don't have it, creates a virtual environment in ``.venv``, and installs Spinning Up and all of its dependencies at the exact versions recorded in ``uv.lock``.
+
+Running Commands
+----------------
+
+There are two ways to run things in the environment. The simplest is to prefix commands with ``uv run``, which finds the environment automatically --- there's nothing to activate, and it works from any new terminal:
+
+.. parsed-literal::
+
+    uv run python -m spinup.run ppo --env CartPole-v1 --exp_name hello
+
+Alternatively, activate the environment once per terminal, after which plain ``python`` works and every command in these docs can be typed exactly as written:
+
+.. parsed-literal::
+
+    source .venv/bin/activate
+
+The rest of the documentation writes commands in the plain ``python ...`` form. If you prefer ``uv run``, just put it in front of any of them.
 
 .. admonition:: You Should Know
 
-    **You have to activate the environment in every new terminal you open.** Unlike a conda environment, which has a name you can activate from anywhere, a virtual environment lives in a directory. From the ``spinningup`` folder, that's:
-
-    .. parsed-literal::
-
-        source spinningup-env/bin/activate
-
-    If you skip this, the commands below won't work, and the error usually won't mention environments at all. On Ubuntu you'll get ``python: command not found`` (there's no bare ``python`` outside an environment, only ``python3``); if you do have a system ``python``, you'll get ``No module named spinup`` instead. Both mean the same thing: activate the environment and try again.
+    If you get ``python: command not found`` (on Ubuntu there is no bare ``python`` outside an environment, only ``python3``), or ``No module named spinup``, it means the environment isn't active. Either activate it with ``source .venv/bin/activate`` or prefix the command with ``uv run``.
 
 .. admonition:: You Should Know
 
     Spinning Up defaults to installing everything in Gymnasium **except** the MuJoCo environments. In case you run into any trouble with the Gymnasium installation, check out the `Gymnasium`_ github page for help. If you want the MuJoCo environments, see the optional installation section below.
 
-    All 6 core algorithms (VPG, TRPO, PPO, DDPG, TD3, SAC) are implemented in PyTorch, which is the default backend. Older TensorFlow 1.x implementations of 5 of the 6 algorithms still exist in the repo for reference, but TensorFlow is no longer installed by default — TF1 has no wheels for modern Python. If you need them, install the ``tf1`` extra (``uv pip install -e ".[tf1]"``) into a separate Python 3.7-or-earlier environment.
+    All 6 core algorithms (VPG, TRPO, PPO, DDPG, TD3, SAC) are implemented in PyTorch, which is the default backend. Older TensorFlow 1.x implementations of 5 of the 6 algorithms still exist in the repo for reference, but TensorFlow is not installed and there's no extra for it: TF 1.x only ships wheels for Python 3.6 and 3.7, so it can't coexist with this project's requirements at all. Running that code means making a separate Python 3.7-or-earlier environment and installing ``tensorflow<2.0`` into it directly.
 
 .. _`Gymnasium`: https://github.com/Farama-Foundation/Gymnasium
 
 Check Your Install
 ==================
 
-With your environment activated (``source spinningup-env/bin/activate``, from the ``spinningup`` folder), try running PPO in the LunarLander-v3 environment with
+With your environment activated (or with ``uv run`` in front of the command), try running PPO in the LunarLander-v3 environment with
 
 .. parsed-literal::
 
@@ -132,12 +137,11 @@ Installing MuJoCo (Optional)
 
 MuJoCo used to be proprietary software requiring a paid (or free trial/student) license. In 2021, DeepMind acquired MuJoCo and open-sourced it, and it's now available as a regular pip package with no license step at all.
 
-From the ``spinningup`` folder, with your environment activated, install the ``mujoco`` extra, which pulls in both the ``mujoco`` physics engine and its Gymnasium environments:
+From the ``spinningup`` folder, add the ``mujoco`` extra, which pulls in both the ``mujoco`` physics engine and its Gymnasium environments:
 
 .. parsed-literal::
 
-    source spinningup-env/bin/activate
-    uv pip install -e ".[mujoco]"
+    uv sync --extra mujoco
 
 .. admonition:: You Should Know
 

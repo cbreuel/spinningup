@@ -3,8 +3,9 @@ __pycache__/
 *.pkl
 data/
 **/*.egg-info
-.python-version
+.venv/
 .idea/
 .vscode/
 .DS_Store
 _build/
+.claude/
