@@ -118,7 +118,7 @@ Pseudocode
                     \begin{align*}
                         & \nabla_{\phi_i} \frac{1}{|B|}\sum_{(s,a,r,s',d) \in B} \left( Q_{\phi_i}(s,a) - y(r,s',d) \right)^2 && \text{for } i=1,2
                     \end{align*}
-                    \IF{ $j \mod$ \texttt{policy\_delay} $ = 0$}
+                    \IF{ $j \bmod$ \texttt{policy\_delay} $ = 0$}
                         \STATE Update policy by one step of gradient ascent using
                         \begin{equation*}
                             \nabla_{\theta} \frac{1}{|B|}\sum_{s \in B}Q_{\phi_1}(s, \mu_{\theta}(s))

@@ -24,6 +24,9 @@ import sys
 dirname = os.path.dirname
 sys.path.insert(0, dirname(dirname(__file__)))
 
+# Local Sphinx extensions live in docs/_ext.
+sys.path.insert(0, os.path.join(dirname(os.path.abspath(__file__)), '_ext'))
+
 # Mock mpi4py to get around having to install it on RTD server (which fails)
 # Also to mock PyTorch, because it is too large for the RTD server to download
 from unittest.mock import MagicMock
@@ -65,7 +68,32 @@ import spinup
 extensions = ['sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
     'sphinx.ext.autodoc',
-    'sphinx.ext.napoleon']
+    'sphinx.ext.napoleon',
+    'pseudocode']
+
+# MathJax has no equivalent of a LaTeX preamble, so the custom macros the
+# docs rely on have to be handed to it through its own config. These are the
+# same definitions the LaTeX preamble below uses; without them, every
+# \underE in the sources renders as raw red error text instead of an
+# expectation. `mathjax3_config` is the config name Sphinx uses for both
+# MathJax 3 and 4.
+mathjax3_config = {
+    'tex': {
+        'macros': {
+            'E': r'{\mathrm E}',
+            'underE': [
+                r'\underset{\begin{subarray}{c}#1 \end{subarray}}{\E}'
+                r'\left[ #2 \right]',
+                2,
+            ],
+            'Epi': [
+                r'\underset{\begin{subarray}{c}\tau \sim \pi \end{subarray}}'
+                r'{\E}\left[ #1 \right]',
+                1,
+            ],
+        },
+    },
+}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

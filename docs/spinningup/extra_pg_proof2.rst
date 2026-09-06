@@ -9,7 +9,7 @@ In this section, we will show that
 
 .. math::
 
-    \nabla_{\theta} J(\pi_{\theta}) &= \underE{\tau \sim \pi_{\theta}}{\sum_{t=0}^{T} \Big( \nabla_{\theta} \log \pi_{\theta}(a_t |s_t) \Big) Q^{\pi_{\theta}}(s_t, a_t)},
+    \nabla_{\theta} J(\pi_{\theta}) = \underE{\tau \sim \pi_{\theta}}{\sum_{t=0}^{T} \Big( \nabla_{\theta} \log \pi_{\theta}(a_t |s_t) \Big) Q^{\pi_{\theta}}(s_t, a_t)},
 
 for the finite-horizon undiscounted return setting. (An analagous result holds in the infinite-horizon discounted case using basically the same proof.)
 
@@ -25,13 +25,13 @@ Define :math:`\tau_{:t} = (s_0, a_0, ..., s_t, a_t)` as the trajectory up to tim
 
 .. math::
 
-    \nabla_{\theta} J(\pi_{\theta}) &= \sum_{t=0}^{T} \underE{\tau_{:t} \sim \pi_{\theta}}{ \underE{\tau_{t:} \sim \pi_{\theta}}{ \left. \nabla_{\theta} \log \pi_{\theta}(a_t |s_t) \hat{R}_t \right| \tau_{:t}}}
+    \nabla_{\theta} J(\pi_{\theta}) = \sum_{t=0}^{T} \underE{\tau_{:t} \sim \pi_{\theta}}{ \underE{\tau_{t:} \sim \pi_{\theta}}{ \left. \nabla_{\theta} \log \pi_{\theta}(a_t |s_t) \hat{R}_t \right| \tau_{:t}}}
 
 The grad-log-prob is constant with respect to the inner expectation (because it depends on :math:`s_t` and :math:`a_t`, which the inner expectation conditions on as fixed in :math:`\tau_{:t}`), so it can be pulled out, leaving:
 
 .. math::
 
-    \nabla_{\theta} J(\pi_{\theta}) &= \sum_{t=0}^{T} \underE{\tau_{:t} \sim \pi_{\theta}}{ \nabla_{\theta} \log \pi_{\theta}(a_t |s_t) \underE{\tau_{t:} \sim \pi_{\theta}}{ \left. \hat{R}_t \right| \tau_{:t}}}
+    \nabla_{\theta} J(\pi_{\theta}) = \sum_{t=0}^{T} \underE{\tau_{:t} \sim \pi_{\theta}}{ \nabla_{\theta} \log \pi_{\theta}(a_t |s_t) \underE{\tau_{t:} \sim \pi_{\theta}}{ \left. \hat{R}_t \right| \tau_{:t}}}
 
 In Markov Decision Processes, the future only depends on the most recent state and action. As a result, the inner expectation---which expects over the future, conditioned on the entirety of the past (everything up to time :math:`t`)---is equal to the same expectation if it only conditioned on the last timestep (just :math:`(s_t,a_t)`):
 

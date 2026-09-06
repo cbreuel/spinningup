@@ -430,15 +430,15 @@ What we have seen so far is that the policy gradient has the general form
 
 where :math:`\Phi_t` could be any of
 
-.. math:: \Phi_t &= R(\tau), 
+.. math:: \Phi_t = R(\tau),
 
 or
 
-.. math:: \Phi_t &= \sum_{t'=t}^T R(s_{t'}, a_{t'}, s_{t'+1}), 
+.. math:: \Phi_t = \sum_{t'=t}^T R(s_{t'}, a_{t'}, s_{t'+1}),
 
 or 
 
-.. math:: \Phi_t &= \sum_{t'=t}^T R(s_{t'}, a_{t'}, s_{t'+1}) - b(s_t).
+.. math:: \Phi_t = \sum_{t'=t}^T R(s_{t'}, a_{t'}, s_{t'+1}) - b(s_t).
 
 All of these choices lead to the same expected value for the policy gradient, despite having different variances. It turns out that there are two more valid choices of weights :math:`\Phi_t` which are important to know.
 

@@ -89,7 +89,7 @@ We now have to make a distinction between two cases: :math:`t' < t`, the case wh
 
 .. math::
 
-    P(s_t, a_t | \pi_{\theta}, s_{t'}, a_{t'}, s_{t'+1}) &= \pi_{\theta}(a_t | s_t) P(s_t | \pi_{\theta}, s_{t'}, a_{t'}, s_{t'+1}),
+    P(s_t, a_t | \pi_{\theta}, s_{t'}, a_{t'}, s_{t'+1}) = \pi_{\theta}(a_t | s_t) P(s_t | \pi_{\theta}, s_{t'}, a_{t'}, s_{t'+1}),
 
 the innermost expectation can be broken down farther into
 
