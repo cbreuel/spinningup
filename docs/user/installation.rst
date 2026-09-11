@@ -73,7 +73,7 @@ Clone the repo and let uv build the environment:
 
 .. parsed-literal::
 
-    git clone https://github.com/openai/spinningup.git
+    git clone https://github.com/cbreuel/spinningup.git
     cd spinningup
     uv sync
 

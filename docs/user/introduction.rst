@@ -105,7 +105,6 @@ Additionally, as discussed in the blog post, Spinning Up has been integrated int
 .. _`essay`: ../spinningup/spinningup.html
 .. _`Spinning Up essay`: ../spinningup/spinningup.html
 .. _`curated list`: ../spinningup/keypapers.html
-.. _`code repo`: https://github.com/openai/spinningup
 .. _`exercises`: ../spinningup/exercises.html
 .. _`garage`: https://github.com/rlworkgroup/garage
 .. _`Baselines`: https://github.com/openai/baselines

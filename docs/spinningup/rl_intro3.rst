@@ -100,7 +100,7 @@ This last expression is the simplest version of the computable expression we des
 Implementing the Simplest Policy Gradient
 =========================================
 
-We give a short PyTorch implementation of this simple version of the policy gradient algorithm in ``spinup/examples/pytorch/pg_math/1_simple_pg.py``. (It can also be viewed `on github <https://github.com/openai/spinningup/blob/master/spinup/examples/pytorch/pg_math/1_simple_pg.py>`_.) It is only 128 lines long, so we highly recommend reading through it in depth. While we won't go through the entirety of the code here, we'll highlight and explain a few important pieces.
+We give a short PyTorch implementation of this simple version of the policy gradient algorithm in ``spinup/examples/pytorch/pg_math/1_simple_pg.py``. (It can also be viewed :srcfile:`on github <spinup/examples/pytorch/pg_math/1_simple_pg.py>`.) It is only 128 lines long, so we highly recommend reading through it in depth. While we won't go through the entirety of the code here, we'll highlight and explain a few important pieces.
 
 
 .. admonition:: You Should Know
@@ -346,7 +346,7 @@ Implementing Reward-to-Go Policy Gradient
 =========================================
 
 
-We give a short PyTorch implementation of the reward-to-go policy gradient in ``spinup/examples/pytorch/pg_math/2_rtg_pg.py``. (It can also be viewed `on github <https://github.com/openai/spinningup/blob/master/spinup/examples/pytorch/pg_math/2_rtg_pg.py>`_.) 
+We give a short PyTorch implementation of the reward-to-go policy gradient in ``spinup/examples/pytorch/pg_math/2_rtg_pg.py``. (It can also be viewed :srcfile:`on github <spinup/examples/pytorch/pg_math/2_rtg_pg.py>`.) 
 
 The only thing that has changed from ``1_simple_pg.py`` is that we now use different weights in the loss function. The code modification is very slight: we add a new function, and change two other lines. The new function is:
 

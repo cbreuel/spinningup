@@ -69,7 +69,8 @@ extensions = ['sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
-    'pseudocode']
+    'pseudocode',
+    'sphinx.ext.extlinks']
 
 # MathJax has no equivalent of a LaTeX preamble, so the custom macros the
 # docs rely on have to be handed to it through its own config. These are the
@@ -94,6 +95,16 @@ mathjax3_config = {
         },
     },
 }
+
+# Links to source files point at the repo the site is built from. GitHub
+# Actions sets GITHUB_REPOSITORY (owner/name) automatically; the fallback is
+# the fork that hosts the GitHub Pages site.
+github_repo = os.environ.get('GITHUB_REPOSITORY', 'cbreuel/spinningup')
+github_url = 'https://github.com/' + github_repo
+extlinks = {
+    'srcfile': (github_url + '/blob/master/%s', '%s'),
+}
+rst_epilog = '.. _`code repo`: ' + github_url + '\n'
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
