@@ -5,7 +5,7 @@ Installation
 
 .. contents:: Table of Contents
 
-Spinning Up requires Python3, OpenAI Gym, and OpenMPI. 
+Spinning Up requires Python3, Gymnasium, and OpenMPI. 
 
 Spinning Up is currently only supported on Linux and OSX. It may be possible to install on Windows, though this hasn't been extensively tested. [#]_ 
 
@@ -13,12 +13,12 @@ Spinning Up is currently only supported on Linux and OSX. It may be possible to 
 
     Many examples and benchmarks in Spinning Up refer to RL environments that use the `MuJoCo`_ physics engine. MuJoCo is a proprietary software that requires a license, which is free to trial and free for students, but otherwise is not free. As a result, installing it is optional, but because of its importance to the research community---it is the de facto standard for benchmarking deep RL algorithms in continuous control---it is preferred. 
 
-    Don't worry if you decide not to install MuJoCo, though. You can definitely get started in RL by running RL algorithms on the `Classic Control`_ and `Box2d`_ environments in Gym, which are totally free to use.
+    Don't worry if you decide not to install MuJoCo, though. You can definitely get started in RL by running RL algorithms on the `Classic Control`_ and `Box2d`_ environments in Gymnasium, which are totally free to use.
 
 .. [#] It looks like at least one person has figured out `a workaround for running on Windows`_. If you try another way and succeed, please let us know how you did it!
 
-.. _`Classic Control`: https://gym.openai.com/envs/#classic_control
-.. _`Box2d`: https://gym.openai.com/envs/#box2d
+.. _`Classic Control`: https://gymnasium.farama.org/environments/classic_control/
+.. _`Box2d`: https://gymnasium.farama.org/environments/box2d/
 .. _`MuJoCo`: http://www.mujoco.org/index.html
 .. _`a workaround for running on Windows`: https://github.com/openai/spinningup/issues/23
 

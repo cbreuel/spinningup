@@ -100,7 +100,7 @@ This last expression is the simplest version of the computable expression we des
 Implementing the Simplest Policy Gradient
 =========================================
 
-We give a short PyTorch implementation of this simple version of the policy gradient algorithm in ``spinup/examples/pytorch/pg_math/1_simple_pg.py``. (It can also be viewed :srcfile:`on github <spinup/examples/pytorch/pg_math/1_simple_pg.py>`.) It is only 128 lines long, so we highly recommend reading through it in depth. While we won't go through the entirety of the code here, we'll highlight and explain a few important pieces.
+We give a short PyTorch implementation of this simple version of the policy gradient algorithm in ``spinup/examples/pytorch/pg_math/1_simple_pg.py``. (It can also be viewed :srcfile:`on github <spinup/examples/pytorch/pg_math/1_simple_pg.py>`.) It is only 130 lines long, so we highly recommend reading through it in depth. While we won't go through the entirety of the code here, we'll highlight and explain a few important pieces.
 
 
 .. admonition:: You Should Know
@@ -202,7 +202,7 @@ In this block, we build a "loss" function for the policy gradient algorithm. Whe
         batch_lens = []         # for measuring episode lengths
 
         # reset episode-specific variables
-        obs = env.reset()       # first obs comes from starting distribution
+        obs, _ = env.reset()    # first obs comes from starting distribution
         done = False            # signal from environment that episode is over
         ep_rews = []            # list for rewards accrued throughout ep
 
@@ -221,7 +221,8 @@ In this block, we build a "loss" function for the policy gradient algorithm. Whe
 
             # act in the environment
             act = get_action(torch.as_tensor(obs, dtype=torch.float32))
-            obs, rew, done, _ = env.step(act)
+            obs, rew, terminated, truncated, _ = env.step(act)
+            done = terminated or truncated
 
             # save action, reward
             batch_acts.append(act)
@@ -237,7 +238,7 @@ In this block, we build a "loss" function for the policy gradient algorithm. Whe
                 batch_weights += [ep_ret] * ep_len
 
                 # reset episode-specific variables
-                obs, done, ep_rews = env.reset(), False, []
+                (obs, _), done, ep_rews = env.reset(), False, []
 
                 # won't render again this epoch
                 finished_rendering_this_epoch = True

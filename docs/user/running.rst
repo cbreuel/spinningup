@@ -24,7 +24,7 @@ eg:
 
 .. parsed-literal::
 
-    python -m spinup.run ppo --env Walker2d-v2 --exp_name walker
+    python -m spinup.run ppo --env Walker2d-v5 --exp_name walker
 
 .. _`experiment outputs`: ../user/saving_and_loading.html
 .. _`plotting`: ../user/plotting.html
@@ -37,11 +37,11 @@ eg:
 
     .. parsed-literal::
 
-        python -m spinup.run ppo --exp_name ppo_ant --env Ant-v2 --clip_ratio 0.1 0.2 
+        python -m spinup.run ppo --exp_name ppo_ant --env Ant-v5 --clip_ratio 0.1 0.2 
             --hid[h] [32,32] [64,32] --act torch.nn.Tanh --seed 0 10 20 --dt
             --data_dir path/to/data
 
-    runs PPO in the ``Ant-v2`` Gym environment, with various settings controlled by the flags.
+    runs PPO in the ``Ant-v5`` Gymnasium environment, with various settings controlled by the flags.
 
     By default, the PyTorch version will run (except for with TRPO, since Spinning Up doesn't have a PyTorch TRPO yet). Substitute ``ppo`` with ``ppo_tf1`` for the Tensorflow version.
 
@@ -99,7 +99,7 @@ to see a readout of the docstring.
 
     .. parsed-literal::
 
-        python -m spinup.run ppo --env Walker2d-v2 --exp_name walker --act torch.nn.ELU
+        python -m spinup.run ppo --env Walker2d-v5 --exp_name walker --act torch.nn.ELU
 
     sets ``torch.nn.ELU`` as the activation function. (Tensorflow equivalent: run ``ppo_tf1`` with ``--act tf.nn.elu``.)
 
@@ -128,7 +128,7 @@ For example, to launch otherwise-equivalent runs with different random seeds (0,
 
 .. parsed-literal::
 
-    python -m spinup.run ppo --env Walker2d-v2 --exp_name walker --seed 0 10 20
+    python -m spinup.run ppo --env Walker2d-v5 --exp_name walker --seed 0 10 20
 
 Experiments don't launch in parallel because they soak up enough resources that executing several at the same time wouldn't get a speedup.
 
@@ -145,7 +145,7 @@ Environment Flag
 
 .. option:: --env, --env_name
 
-    *string*. The name of an environment in the OpenAI Gym. All Spinning Up algorithms are implemented as functions that accept ``env_fn`` as an argument, where ``env_fn`` must be a callable function that builds a copy of the RL environment. Since the most common use case is Gym environments, though, all of which are built through ``gym.make(env_name)``, we allow you to just specify ``env_name`` (or ``env`` for short) at the command line, which gets converted to a lambda-function that builds the correct gym environment.
+    *string*. The name of an environment registered in Gymnasium. All Spinning Up algorithms are implemented as functions that accept ``env_fn`` as an argument, where ``env_fn`` must be a callable function that builds a copy of the RL environment. Since the most common use case is Gymnasium environments, though, all of which are built through ``gymnasium.make(env_name)``, we allow you to just specify ``env_name`` (or ``env`` for short) at the command line, which gets converted to a lambda-function that builds the correct Gymnasium environment.
 
 
 Shortcut Flags
@@ -212,7 +212,7 @@ For example, consider:
 
 .. parsed-literal::
 
-    python -m spinup.run ddpg_tf1 --env Hopper-v2 --hid[h] [300] [128,128] --act tf.nn.tanh tf.nn.relu
+    python -m spinup.run ddpg --env Hopper-v5 --hid[h] [300] [128,128] --act torch.nn.Tanh torch.nn.ReLU
 
 Here, the ``--hid`` flag is given a **user-supplied shorthand**, ``h``. The ``--act`` flag is not given a shorthand by the user, so one will be constructed for it automatically.
 
@@ -247,13 +247,13 @@ See the documentation page for each algorithm for a complete account of possible
 
 .. code-block:: python
 
-    from spinup import ppo_tf1 as ppo
-    import tensorflow as tf
-    import gym
+    from spinup import ppo_pytorch as ppo
+    import torch
+    import gymnasium as gym
 
-    env_fn = lambda : gym.make('LunarLander-v2')
+    env_fn = lambda : gym.make('LunarLander-v3')
 
-    ac_kwargs = dict(hidden_sizes=[64,64], activation=tf.nn.relu)
+    ac_kwargs = dict(hidden_sizes=[64,64], activation=torch.nn.ReLU)
 
     logger_kwargs = dict(output_dir='path/to/output_dir', exp_name='experiment_name')
 

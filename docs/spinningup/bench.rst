@@ -4,9 +4,9 @@ Benchmarks for Spinning Up Implementations
 
 .. contents:: Table of Contents
 
-We benchmarked the Spinning Up algorithm implementations in five environments from the MuJoCo_ Gym task suite: HalfCheetah, Hopper, Walker2d, Swimmer, and Ant.
+We benchmarked the Spinning Up algorithm implementations in five environments from the MuJoCo_ Gymnasium task suite: HalfCheetah, Hopper, Walker2d, Swimmer, and Ant.
 
-.. _MuJoCo: https://gym.openai.com/envs/#mujoco
+.. _MuJoCo: https://gymnasium.farama.org/environments/mujoco/
 
 Performance in Each Environment
 ===============================

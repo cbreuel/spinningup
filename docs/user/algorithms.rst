@@ -16,11 +16,11 @@ The following algorithms are implemented in the Spinning Up package:
 - `Twin Delayed DDPG`_ (TD3)
 - `Soft Actor-Critic`_ (SAC)
 
-They are all implemented with `MLP`_ (non-recurrent) actor-critics, making them suitable for fully-observed, non-image-based RL environments, e.g. the `Gym Mujoco`_ environments.
+They are all implemented with `MLP`_ (non-recurrent) actor-critics, making them suitable for fully-observed, non-image-based RL environments, e.g. the `Gymnasium MuJoCo`_ environments.
 
 Spinning Up has two implementations for each algorithm: one that uses `PyTorch`_ as the neural network library, and one that uses `Tensorflow v1`_ as the neural network library. The PyTorch implementations are the ones you get by default; the Tensorflow v1 ones are legacy code, kept for reference, and are not installed by default (see `Installation`_).
 
-.. _`Gym Mujoco`: https://gym.openai.com/envs/#mujoco
+.. _`Gymnasium MuJoCo`: https://gymnasium.farama.org/environments/mujoco/
 .. _`Vanilla Policy Gradient`: ../algorithms/vpg.html
 .. _`Trust Region Policy Optimization`: ../algorithms/trpo.html
 .. _`Proximal Policy Optimization`: ../algorithms/ppo.html
@@ -61,7 +61,7 @@ Code Format
 
 All implementations in Spinning Up adhere to a standard template. They are split into two files: an algorithm file, which contains the core logic of the algorithm, and a core file, which contains various utilities needed to run the algorithm.
 
-The algorithm file always starts with a class definition for an experience buffer object, which is used to store information from agent-environment interactions. Next, there is a single function which runs the algorithm. The algorithm function follows a template that is roughly the same across the PyTorch and Tensorflow versions, but we'll break it down for each separately below. Finally, there's some support in each algorithm file for directly running the algorithm in Gym environments from the command line (though this is not the recommended way to run the algorithms---we'll describe how to do that on the `Running Experiments`_ page).
+The algorithm file always starts with a class definition for an experience buffer object, which is used to store information from agent-environment interactions. Next, there is a single function which runs the algorithm. The algorithm function follows a template that is roughly the same across the PyTorch and Tensorflow versions, but we'll break it down for each separately below. Finally, there's some support in each algorithm file for directly running the algorithm in Gymnasium environments from the command line (though this is not the recommended way to run the algorithms---we'll describe how to do that on the `Running Experiments`_ page).
 
 .. _`Running Experiments`: ../user/running.html
 
